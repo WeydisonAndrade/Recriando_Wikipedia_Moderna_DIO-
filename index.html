@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Uma enciclopédia moderna, acessível e personalizável.">
+
+    <meta name="color-scheme" content="light dark">
+
+    <title>Sistema Solar — WeydPédia</title>
+
+
+
+    <style>
+        /* ===== Identidade visual ===== */
+
+        :root {
+            color-scheme: light;
+            --bg: #f8f9fc;
+            --surface: #ffffff;
+            --text: #202b3f;
+            --muted: #5f6b7d;
+            --line: #e0e5ee;
+            --accent: #3459c9;
+            --accent-soft: #eaf0ff;
+            --heading: #172238;
+            --article-size: 17px;
+            --radius: 16px;
+        }
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #101722;
+            --surface: #172131;
+            --text: #dde5f0;
+            --muted: #a6b3c6;
+            --line: #324055;
+            --accent: #a5baff;
+            --accent-soft: #263655;
+            --heading: #f4f6ff;
+        }
+
+        /* ===== Base e acessibilidade ===== */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 120px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 15px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        p,
+        figure {
+            margin: 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            text-underline-offset: 4px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button,
+        select {
+            cursor: pointer;
+        }
+
+        button {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        svg {
+            display: block;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            padding: 10px 18px;
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            transform: translateY(-180%);
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        .icon {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 750;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        /* ===== Cabeçalho ===== */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: var(--surface);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .header-inner {
+            max-width: 1512px;
+            margin: auto;
+            min-height: 86px;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--heading);
+            flex-shrink: 0;
+        }
+
+        .brand:hover {
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font: 700 30px/1 Georgia, serif;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .brand-name {
+            display: block;
+            font: 700 26px/1.2 Georgia, serif;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-tagline {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 0.065em;
+            margin-top: 4px;
+        }
+
+        .search-area {
+            position: relative;
+            flex: 1;
+            max-width: 490px;
+            margin-inline: auto;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 6px 5px 15px;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+        }
+
+        .search-form:focus-within {
+            border-color: var(--accent);
+        }
+
+        .search-form>.icon {
+            color: var(--muted);
+        }
+
+        .search-form input {
+            width: 100%;
+            min-width: 0;
+            color: var(--text);
+            background: transparent;
+            border: 0;
+            padding: 5px 0;
+        }
+
+        .search-form input::placeholder {
+            color: var(--muted);
+            opacity: 1;
+        }
+
+        .search-form input:focus-visible {
+            outline-offset: 1px;
+            border-radius: 3px;
+        }
+
+        .search-submit {
+            background: var(--surface);
+            color: var(--accent);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 5px 11px;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .search-feedback {
+            position: absolute;
+            top: calc(100% + 7px);
+            left: 0;
+            right: 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px 14px;
+            background: var(--surface);
+            box-shadow: 0 6px 18px #101a3020;
+            font-size: 12px;
+        }
+
+        .search-feedback:empty {
+            display: none;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .header-nav a {
+            color: var(--muted);
+        }
+
+        .header-nav a:hover {
+            color: var(--accent);
+        }
+
+        .header-nav .nav-current {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .theme-button {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--bg);
+        }
+
+        .theme-button:hover {
+            background: var(--accent-soft);
+        }
+
+        /* ===== Estrutura da página ===== */
+
+        .page-shell {
+            display: grid;
+            grid-template-columns: 185px minmax(0, 1fr) 214px;
+            gap: 38px;
+            max-width: 1420px;
+            margin: auto;
+            padding: 36px 40px 60px;
+            align-items: start;
+        }
+
+        .toc-sidebar,
+        .reading-sidebar {
+            position: sticky;
+            top: 121px;
+        }
+
+        .toc-sidebar {
+            padding-top: 5px;
+        }
+
+        .sidebar-label {
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .toc summary {
+            color: var(--heading);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            padding-block: 6px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0;
+            border-left: 1px solid var(--line);
+        }
+
+        .toc a {
+            display: block;
+            padding: 10px 12px;
+            margin-left: -1px;
+            border-left: 2px solid transparent;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .toc a[aria-current="location"] {
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            font-weight: 650;
+            border-radius: 0 7px 7px 0;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+            background: var(--accent-soft);
+            text-decoration: none;
+        }
+
+        .sidebar-note {
+            margin-top: 32px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .sidebar-note strong {
+            color: var(--text);
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        main {
+            min-width: 0;
+        }
+
+        .breadcrumbs ol {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 9px;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 26px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .breadcrumbs li+li::before {
+            content: "/";
+            color: var(--muted);
+            margin-right: 9px;
+        }
+
+        .breadcrumbs a {
+            color: var(--muted);
+        }
+
+        .article-topline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .article-topline::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        h1 {
+            color: var(--heading);
+            font: 400 clamp(38px, 4.2vw, 56px)/1.18 Georgia, "Times New Roman", serif;
+            letter-spacing: -1.7px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: var(--muted);
+            margin-top: 11px;
+        }
+
+        .article-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--line);
+            padding: 24px 0 14px;
+            margin-bottom: 24px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .article-meta span+span::before {
+            content: "·";
+            margin-right: 8px;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .text-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 5px 0;
+            background: none;
+            border: 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .text-button:hover {
+            color: var(--accent);
+        }
+
+        .text-button .icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .prose {
+            font-size: var(--article-size);
+            line-height: 1.85;
+        }
+
+        .prose p+p {
+            margin-top: 15px;
+        }
+
+        .prose strong {
+            color: var(--heading);
+        }
+
+        .prose a {
+            text-decoration: underline;
+        }
+
+        .prose sup {
+            font-size: 0.68em;
+            margin-left: 3px;
+        }
+
+        .article-section {
+            margin-top: 36px;
+            scroll-margin-top: 115px;
+        }
+
+        .article-section h2 {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font: 400 29px/1.3 Georgia, serif;
+            color: var(--heading);
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-number {
+            font: 500 11px/1.4 system-ui, sans-serif;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+        }
+
+        mark.search-match {
+            background: #ffdf80;
+            color: #252018;
+            padding: 1px 0;
+            border-radius: 2px;
+            scroll-margin: 180px 0 40px;
+        }
+
+        mark.search-current {
+            outline: 2px solid #9a6611;
+            outline-offset: 2px;
+        }
+
+        /* ===== Ilustração feita com CSS ===== */
+
+        .solar-figure {
+            margin-top: 28px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--surface);
+        }
+
+        .space-art {
+            position: relative;
+            height: 236px;
+            overflow: hidden;
+            isolation: isolate;
+            color: #dce5ff;
+            background:
+                radial-gradient(ellipse at 5% 90%,
+                    #67422a70,
+                    transparent 40%),
+                radial-gradient(ellipse at 75% 25%,
+                    #293b6570,
+                    transparent 70%),
+                #101a2e;
+        }
+
+        .space-art::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.55;
+            background-image:
+                radial-gradient(circle,
+                    #ced7f5 1px,
+                    transparent 1.3px),
+                radial-gradient(circle,
+                    #8799c4 0.7px,
+                    transparent 1px);
+            background-size: 63px 57px, 101px 83px;
+            background-position: 9px 17px, 30px 40px;
+        }
+
+        .art-kicker {
+            position: absolute;
+            top: 22px;
+            left: 25px;
+            letter-spacing: 0.18em;
+            font-size: 9px;
+            font-weight: 600;
+            color: #b8c8e3;
+        }
+
+        .planet-row {
+            position: absolute;
+            left: -4%;
+            right: 4%;
+            top: 64px;
+            height: 135px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .planet {
+            width: var(--size);
+            height: var(--size);
+            flex: 0 0 var(--size);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: inset -8px -4px 12px #02071280;
+        }
+
+        .planet::after {
+            content: attr(data-name);
+            position: absolute;
+            top: calc(50% + 54px);
+            left: 50%;
+            transform: translateX(-50%);
+            color: #c6d1e6;
+            font-size: 9px;
+            white-space: nowrap;
+            font-family: system-ui, sans-serif;
+        }
+
+        .sun {
+            --size: 101px;
+            background: radial-gradient(circle at 35% 40%,
+                    #fff1a4,
+                    #ffc55c 50%,
+                    #e99435 90%);
+            box-shadow: 0 0 55px #ffb24e45;
+        }
+
+        .sun::after {
+            left: 64%;
+        }
+
+        .mercury {
+            --size: 11px;
+            background: #a99c8d;
+        }
+
+        .venus {
+            --size: 20px;
+            background: linear-gradient(30deg,
+                    #8d6548,
+                    #e5c99b,
+                    #aa8061);
+        }
+
+        .earth {
+            --size: 23px;
+            background:
+                radial-gradient(ellipse at 33% 23%,
+                    #bdcdb1 5%,
+                    transparent 20%),
+                radial-gradient(ellipse at 36% 50%,
+                    #89a99a 20%,
+                    transparent 22%),
+                radial-gradient(circle at 35% 30%,
+                    #87c9e0,
+                    #3c799c 58%,
+                    #1b3e63);
+        }
+
+        .mars {
+            --size: 16px;
+            background: linear-gradient(40deg,
+                    #9c4a37,
+                    #cb8961,
+                    #a55b43);
+        }
+
+        .jupiter {
+            --size: 61px;
+            background: repeating-linear-gradient(170deg,
+                    #ae8063 0 7px,
+                    #dfc7a6 7px 15px,
+                    #b59980 15px 21px);
+        }
+
+        .saturn {
+            --size: 43px;
+            background: linear-gradient(165deg, #d0b48b, #aa9170);
+            margin-inline: 8px;
+        }
+
+        .saturn::before {
+            content: "";
+            position: absolute;
+            left: -18px;
+            top: 11px;
+            width: 80px;
+            height: 23px;
+            border: 7px solid #c7b6989c;
+            border-radius: 50%;
+            transform: rotate(-27deg);
+        }
+
+        .uranus {
+            --size: 30px;
+            background: linear-gradient(140deg, #c1e5df, #6095a0);
+        }
+
+        .neptune {
+            --size: 28px;
+            background: linear-gradient(145deg, #7597d4, #304d8b);
+        }
+
+        .solar-figure figcaption {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 5px 16px;
+            padding: 13px 19px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .solar-figure figcaption strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ===== Tabela e notas ===== */
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            margin-top: 20px;
+            background: var(--surface);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.84em;
+            line-height: 1.5;
+        }
+
+        caption {
+            text-align: left;
+            padding: 15px 17px;
+            font-size: 0.88em;
+            color: var(--muted);
+            background: var(--surface);
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 13px 17px;
+            border-top: 1px solid var(--line);
+        }
+
+        thead th {
+            color: var(--muted);
+            background: var(--bg);
+            font-size: 0.78em;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        tbody th {
+            font-weight: 600;
+        }
+
+        .planet-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background: #bd8361;
+        }
+
+        .planet-dot.gas {
+            background: #b19774;
+        }
+
+        .planet-dot.ice {
+            background: #69a3bd;
+        }
+
+        .callout {
+            padding: 18px 21px;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 10px 10px 0;
+            font-size: 0.88em;
+            margin-top: 20px;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .references {
+            font-size: 14px;
+            padding-left: 22px;
+        }
+
+        .references li {
+            padding: 6px 0 6px 5px;
+        }
+
+        .references cite {
+            font-style: normal;
+        }
+
+        .article-footer {
+            border-top: 1px solid var(--line);
+            margin-top: 35px;
+            padding-top: 19px;
+            font-size: 12px;
+            color: var(--muted);
+            display: flex;
+            gap: 8px;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 3px 10px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--surface);
+            color: var(--muted);
+        }
+
+        /* ===== Coluna de leitura ===== */
+
+        .reading-sidebar {
+            padding-top: 5px;
+        }
+
+        .overview {
+            padding: 21px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
+        }
+
+        .overview h2 {
+            font-size: 14px;
+            font-weight: 650;
+            color: var(--heading);
+        }
+
+        .overview-symbol {
+            height: 74px;
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .overview-symbol svg {
+            width: 66px;
+            height: 66px;
+        }
+
+        .overview-subtitle {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+        .facts {
+            margin: 18px 0 0;
+        }
+
+        .facts>div {
+            border-top: 1px solid var(--line);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .facts dt {
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .facts dd {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--heading);
+            margin: 0;
+        }
+
+        .reading-options {
+            margin-top: 26px;
+            padding-inline: 4px;
+        }
+
+        .reading-options h2 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 17px;
+        }
+
+        .reading-options label {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        .reading-options select {
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--text);
+            background: var(--surface);
+            font-size: 12px;
+        }
+
+        .reading-hint {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .site-footer {
+            max-width: 1340px;
+            margin: auto;
+            border-top: 1px solid var(--line);
+            padding: 23px 0 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .site-footer strong {
+            color: var(--text);
+        }
+
+        .site-footer a {
+            white-space: nowrap;
+        }
+
+        noscript p {
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        /* ===== Responsividade ===== */
+
+        @media (min-width: 1500px) {
+            .page-shell {
+                gap: 48px;
+            }
+        }
+
+        @media (max-width: 1150px) {
+            .header-inner {
+                gap: 24px;
+                padding-inline: 28px;
+            }
+
+            .header-nav {
+                gap: 16px;
+            }
+
+            .header-nav .optional-link {
+                display: none;
+            }
+
+            .page-shell {
+                grid-template-columns: 158px minmax(0, 1fr);
+                gap: 28px;
+                padding-inline: 28px;
+            }
+
+            .reading-sidebar {
+                position: static;
+                grid-column: 2;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .overview-symbol {
+                display: none;
+            }
+
+            .reading-options {
+                margin-top: 0;
+                padding: 20px 0;
+            }
+
+            .facts {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .facts>div {
+                margin: 0;
+            }
+
+            .site-footer {
+                margin-inline: 28px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            html {
+                scroll-padding-top: 175px;
+            }
+
+            .header-inner {
+                flex-wrap: wrap;
+                gap: 14px 18px;
+                padding: 13px 20px;
+            }
+
+            .brand-mark {
+                width: 42px;
+                height: 42px;
+                font-size: 24px;
+            }
+
+            .brand-name {
+                font-size: 23px;
+            }
+
+            .brand-tagline {
+                font-size: 9px;
+            }
+
+            .header-nav {
+                margin-left: auto;
+            }
+
+            .header-nav>a {
+                display: none;
+            }
+
+            .search-area {
+                order: 3;
+                flex-basis: 100%;
+                max-width: none;
+            }
+
+            .search-form input {
+                font-size: 16px;
+            }
+
+            .page-shell {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                padding: 22px 20px 35px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                padding: 0;
+                width: 100%;
+            }
+
+            .sidebar-label,
+            .sidebar-note {
+                display: none;
+            }
+
+            .toc {
+                padding: 9px 15px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: var(--surface);
+            }
+
+            .toc ul {
+                margin-bottom: 10px;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .breadcrumbs ol {
+                margin-bottom: 22px;
+                font-size: 11px;
+            }
+
+            .article-toolbar {
+                padding-top: 20px;
+            }
+
+            .article-meta span:last-child {
+                display: none;
+            }
+
+            .article-section {
+                scroll-margin-top: 180px;
+            }
+
+            .article-section h2 {
+                font-size: 26px;
+            }
+
+            .space-art {
+                height: 207px;
+            }
+
+            .art-kicker {
+                left: 18px;
+            }
+
+            .planet-row {
+                left: -4%;
+                right: 4%;
+                top: 55px;
+                height: 120px;
+                gap: 4px;
+            }
+
+            .planet::after {
+                font-size: 7px;
+                top: calc(50% + 40px);
+            }
+
+            .sun {
+                --size: 59px;
+            }
+
+            .mercury {
+                --size: 7px;
+            }
+
+            .venus {
+                --size: 13px;
+            }
+
+            .earth {
+                --size: 15px;
+            }
+
+            .mars {
+                --size: 10px;
+            }
+
+            .jupiter {
+                --size: 35px;
+            }
+
+            .saturn {
+                --size: 26px;
+                margin-inline: 5px;
+            }
+
+            .saturn::before {
+                width: 47px;
+                height: 14px;
+                left: -10px;
+                top: 6px;
+                border-width: 4px;
+            }
+
+            .uranus {
+                --size: 18px;
+            }
+
+            .neptune {
+                --size: 17px;
+            }
+
+            .solar-figure figcaption {
+                padding: 12px 15px;
+                font-size: 10px;
+            }
+
+            th,
+            td {
+                padding: 12px;
+            }
+
+            .reading-sidebar {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .reading-options {
+                padding: 12px 2px;
+            }
+
+            .site-footer {
+                margin-inline: 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===== Impressão ===== */
+
+        @media print {
+
+            :root,
+            [data-theme="dark"] {
+                --bg: #fff;
+                --surface: #fff;
+                --text: #111;
+                --heading: #111;
+                --muted: #444;
+                --line: #ccc;
+                --accent: #222;
+                --accent-soft: #f0f0f0;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+
+            .site-header,
+            .toc-sidebar,
+            .reading-sidebar,
+            .toolbar-actions,
+            .breadcrumbs,
+            .site-footer,
+            .skip-link {
+                display: none !important;
+            }
+
+            .page-shell {
+                display: block;
+                padding: 0;
+                max-width: none;
+            }
+
+            h1 {
+                font-size: 32pt;
+            }
+
+            .prose {
+                font-size: 11pt;
+            }
+
+            .solar-figure,
+            tr,
+            .callout {
+                break-inside: avoid;
+            }
+
+            .article-section h2 {
+                break-after: avoid;
+            }
+
+            .space-art {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            mark.search-match {
+                background: none;
+                color: inherit;
+                outline: none;
+            }
+
+            @page {
+                margin: 18mm;
+            }
+        }
+    </style>
+</head>
+
+<body id="inicio">
+    <a class="skip-link" href="#conteudo">
+        Pular para o conteúdo
+    </a>
+
+    <!-- ===== Cabeçalho principal ===== -->
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="#inicio" aria-label="WeydPédia — início">
+                <span class="brand-mark" aria-hidden="true">W</span>
+
+                <span class="brand-text">
+                    <span class="brand-name">WeydPédia</span>
+                    <span class="brand-tagline">Conhecimento para explorar.</span>
+                </span>
+            </a>
+
+            <div class="search-area" data-enhanced hidden>
+                <form class="search-form" id="search-form" role="search" aria-label="Pesquisar neste artigo">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="10.5" cy="10.5" r="6.5" />
+                        <path d="m16 16 4.5 4.5" />
+                    </svg>
+
+                    <label class="sr-only" for="search-input">
+                        Buscar neste artigo
+                    </label>
+
+                    <input type="search" id="search-input" placeholder="Buscar neste artigo…" maxlength="100"
+                        autocomplete="off" aria-describedby="search-feedback">
+
+                    <button class="search-submit" type="submit">
+                        Buscar
+                    </button>
+                </form>
+
+                <p class="search-feedback" id="search-feedback" role="status" aria-live="polite"></p>
+            </div>
+
+            <nav class="header-nav" aria-label="Navegação principal">
+                <a class="nav-current" href="#conteudo">
+                    Artigo
+                </a>
+
+                <a class="optional-link" href="#referencias">
+                    Referências
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
+                <button class="theme-button" id="theme-toggle" type="button" aria-label="Modo escuro"
+                    aria-pressed="false" title="Alternar modo escuro" data-enhanced hidden>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.5 13.2A8.7 8.7 0 0 1 10.8 3.5a8.7 8.7 0 1 0 9.7 9.7Z" />
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-shell">
+
+        <!-- ===== Índice lateral ===== -->
+
+        <aside class="toc-sidebar" aria-label="Navegação do artigo">
+            <p class="eyebrow sidebar-label">
+                Explore o conteúdo
+            </p>
+
+            <details class="toc" id="toc" open>
+                <summary>Neste artigo</summary>
+
+                <nav aria-label="Índice do artigo">
+                    <ul>
+                        <li>
+                            <a href="#introducao" aria-current="location">
+                                Introdução
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#formacao">
+                                A origem de tudo
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#planetas">
+                                Os oito planetas
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#alem-dos-planetas">
+                                Além dos planetas
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#referencias">
+                                Referências
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </details>
+
+            <div class="sidebar-note">
+                <strong>Uma descoberta leva a outra.</strong>
+
+                <p>
+                    Explore o artigo e siga as referências
+                    para continuar aprendendo.
+                </p>
+            </div>
+        </aside>
+
+        <!-- ===== Conteúdo principal ===== -->
+
+        <main id="conteudo" tabindex="-1">
+            <nav class="breadcrumbs" aria-label="Localização na página">
+                <ol>
+                    <li>
+                        <a href="#inicio">Enciclopédia</a>
+                    </li>
+
+                    <li>Astronomia</li>
+
+                    <li>
+                        <span aria-current="page">
+                            Sistema Solar
+                        </span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!--
+        CONTEÚDO DE EXEMPLO:
+        substitua o artigo e atualize o índice lateral.
+      -->
+
+            <article aria-labelledby="article-title">
+                <header>
+                    <p class="eyebrow article-topline">
+                        Astronomia &amp; espaço
+                    </p>
+
+                    <h1 id="article-title">
+                        Sistema Solar
+                    </h1>
+
+                    <p class="subtitle">
+                        O nosso endereço no Universo.
+                    </p>
+
+                    <div class="article-toolbar">
+                        <p class="article-meta">
+                            <span>Artigo de exemplo</span>
+                            <span>Português</span>
+                        </p>
+
+                        <div class="toolbar-actions">
+                            <a class="text-button" href="#referencias">
+                                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M4 4h6a3 3 0 0 1 3 3v14a4 4 0 0 0-4-3H4zM13 7a3 3 0 0 1 3-3h5v14h-4a4 4 0 0 0-4 3" />
+                                </svg>
+
+                                Fontes
+                            </a>
+
+                            <button class="text-button" id="print-button" type="button" data-enhanced hidden>
+                                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M7 8V3h10v5M6 17H3V9h18v8h-3M7 14h10v7H7z" />
+                                </svg>
+
+                                Imprimir
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="prose" id="article-body">
+
+                    <!-- Introdução -->
+
+                    <section id="introducao" aria-labelledby="intro-title" data-section>
+                        <h2 class="sr-only" id="intro-title">
+                            Introdução
+                        </h2>
+
+                        <p>
+                            O <strong>Sistema Solar</strong> reúne o Sol
+                            e os corpos celestes que orbitam ao seu redor.
+                            É a nossa vizinhança cósmica: oito planetas,
+                            luas, planetas anões, asteroides e cometas,
+                            em uma pequena região da
+                            <strong>Via Láctea</strong>.<sup><a href="#ref-1" aria-label="Referência 1">[1]</a></sup>
+                        </p>
+
+                        <p>
+                            Dos mundos rochosos mais próximos do Sol aos
+                            gigantes das regiões externas, cada planeta
+                            ajuda a contar uma parte dessa história.
+                        </p>
+
+                        <figure class="solar-figure">
+                            <div class="space-art" role="img"
+                                aria-label="Ilustração do Sol e dos oito planetas em ordem de distância: Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno. Tamanhos e distâncias fora de escala.">
+                                <span class="art-kicker" aria-hidden="true">
+                                    NOSSA VIZINHANÇA CÓSMICA
+                                </span>
+
+                                <div class="planet-row" aria-hidden="true">
+                                    <span class="planet sun" data-name="Sol"></span>
+
+                                    <span class="planet mercury" data-name="Mercúrio"></span>
+
+                                    <span class="planet venus" data-name="Vênus"></span>
+
+                                    <span class="planet earth" data-name="Terra"></span>
+
+                                    <span class="planet mars" data-name="Marte"></span>
+
+                                    <span class="planet jupiter" data-name="Júpiter"></span>
+
+                                    <span class="planet saturn" data-name="Saturno"></span>
+
+                                    <span class="planet uranus" data-name="Urano"></span>
+
+                                    <span class="planet neptune" data-name="Netuno"></span>
+                                </div>
+                            </div>
+
+                            <figcaption>
+                                <strong>
+                                    Uma estrela. Oito mundos para descobrir.
+                                </strong>
+
+                                <span>
+                                    Ilustração esquemática, fora de escala.
+                                </span>
+                            </figcaption>
+                        </figure>
+                    </section>
+
+                    <!-- Formação -->
+
+                    <section class="article-section" id="formacao" aria-labelledby="formation-title" data-section>
+                        <h2 id="formation-title">
+                            <span class="section-number" aria-hidden="true">
+                                01
+                            </span>
+
+                            A origem de tudo
+                        </h2>
+
+                        <p>
+                            Há aproximadamente
+                            <strong>4,6 bilhões de anos</strong>,
+                            uma nuvem de gás e poeira começou a se contrair.
+                            O material se organizou em um disco: o Sol
+                            se formou no centro, enquanto partículas ao
+                            redor se uniram e deram origem a corpos
+                            maiores.<sup><a href="#ref-1" aria-label="Referência 1">[1]</a></sup>
+                        </p>
+                    </section>
+
+                    <!-- Planetas -->
+
+                    <section class="article-section" id="planetas" aria-labelledby="planets-title" data-section>
+                        <h2 id="planets-title">
+                            <span class="section-number" aria-hidden="true">
+                                02
+                            </span>
+
+                            Os oito planetas
+                        </h2>
+
+                        <p>
+                            Mercúrio, Vênus, Terra e Marte possuem
+                            superfícies rochosas. Júpiter e Saturno
+                            são gigantes gasosos; Urano e Netuno
+                            são classificados como gigantes de
+                            gelo.<sup><a href="#ref-2" aria-label="Referência 2">[2]</a></sup>
+                        </p>
+
+                        <div class="table-wrap" role="region"
+                            aria-label="Tabela de planetas, com rolagem horizontal se necessário" tabindex="0">
+                            <table>
+                                <caption>
+                                    Planetas em ordem de distância ao Sol.
+                                </caption>
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ordem</th>
+                                        <th scope="col">Planeta</th>
+                                        <th scope="col">Classificação</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>1º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot" aria-hidden="true"></span>Mercúrio
+                                        </th>
+
+                                        <td>Rochoso</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot" aria-hidden="true"></span>Vênus
+                                        </th>
+
+                                        <td>Rochoso</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>3º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot" aria-hidden="true"></span>Terra
+                                        </th>
+
+                                        <td>Rochoso</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>4º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot" aria-hidden="true"></span>Marte
+                                        </th>
+
+                                        <td>Rochoso</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>5º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot gas" aria-hidden="true"></span>Júpiter
+                                        </th>
+
+                                        <td>Gigante gasoso</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>6º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot gas" aria-hidden="true"></span>Saturno
+                                        </th>
+
+                                        <td>Gigante gasoso</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>7º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot ice" aria-hidden="true"></span>Urano
+                                        </th>
+
+                                        <td>Gigante de gelo</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>8º</td>
+
+                                        <th scope="row">
+                                            <span class="planet-dot ice" aria-hidden="true"></span>Netuno
+                                        </th>
+
+                                        <td>Gigante de gelo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <aside class="callout" aria-label="Curiosidade sobre Plutão">
+                            <strong>E Plutão?</strong>
+
+                            <p>
+                                Desde 2006, Plutão é classificado como
+                                planeta anão pela União Astronômica
+                                Internacional.<sup><a href="#ref-2" aria-label="Referência 2">[2]</a></sup>
+                            </p>
+                        </aside>
+                    </section>
+
+                    <!-- Outros corpos celestes -->
+
+                    <section class="article-section" id="alem-dos-planetas" aria-labelledby="beyond-title" data-section>
+                        <h2 id="beyond-title">
+                            <span class="section-number" aria-hidden="true">
+                                03
+                            </span>
+
+                            Além dos planetas
+                        </h2>
+
+                        <p>
+                            O Sistema Solar continua muito além da órbita
+                            de Netuno. Nessa região fica o
+                            <strong>Cinturão de Kuiper</strong>,
+                            que abriga corpos gelados, incluindo Plutão.
+                            Entre Marte e Júpiter, o cinturão de asteroides
+                            conserva fragmentos da formação do
+                            sistema.<sup><a href="#ref-1" aria-label="Referência 1">[1]</a></sup>
+                        </p>
+                    </section>
+
+                    <!-- Referências -->
+
+                    <section class="article-section" id="referencias" aria-labelledby="references-title" data-section>
+                        <h2 id="references-title">
+                            <span class="section-number" aria-hidden="true">
+                                04
+                            </span>
+
+                            Referências
+                        </h2>
+
+                        <ol class="references">
+                            <li id="ref-1">
+                                <cite>
+                                    <a href="https://science.nasa.gov/solar-system/solar-system-facts/" target="_blank"
+                                        rel="noopener noreferrer">
+                                        NASA — Solar System Facts
+                                        <span class="sr-only">
+                                            (abre em nova aba)
+                                        </span>
+                                    </a>
+                                </cite>.
+
+                                Formação e estrutura do Sistema Solar.
+                            </li>
+
+                            <li id="ref-2">
+                                <cite>
+                                    <a href="https://science.nasa.gov/solar-system/planets/" target="_blank"
+                                        rel="noopener noreferrer">
+                                        NASA — About the Planets
+                                        <span class="sr-only">
+                                            (abre em nova aba)
+                                        </span>
+                                    </a>
+                                </cite>.
+
+                                Planetas e suas classificações.
+                            </li>
+                        </ol>
+                    </section>
+                </div>
+
+                <footer class="article-footer" aria-label="Categorias do artigo">
+                    <span>Categorias:</span>
+                    <span class="tag">Astronomia</span>
+                    <span class="tag">Ciência</span>
+                    <span class="tag">Sistema Solar</span>
+                </footer>
+            </article>
+
+            <noscript>
+                <p>
+                    A leitura e o índice funcionam sem JavaScript.
+                    Ative-o para usar a busca e as opções de aparência.
+                </p>
+            </noscript>
+        </main>
+
+        <!-- ===== Resumo e preferências ===== -->
+
+        <aside class="reading-sidebar" aria-label="Resumo e preferências de leitura">
+            <section class="overview" aria-labelledby="overview-title">
+                <div class="overview-symbol" aria-hidden="true">
+                    <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="1.3">
+                        <circle cx="36" cy="36" r="7" fill="currentColor" fill-opacity=".12" />
+
+                        <ellipse cx="36" cy="36" rx="30" ry="12" transform="rotate(-35 36 36)" />
+
+                        <ellipse cx="36" cy="36" rx="30" ry="12" transform="rotate(35 36 36)" opacity=".5" />
+
+                        <circle cx="58" cy="21" r="4" fill="currentColor" stroke="none" />
+                    </svg>
+                </div>
+
+                <h2 id="overview-title">
+                    Sistema Solar
+                </h2>
+
+                <p class="overview-subtitle">
+                    Em um olhar
+                </p>
+
+                <dl class="facts">
+                    <div>
+                        <dt>Estrela central</dt>
+                        <dd>Sol</dd>
+                    </div>
+
+                    <div>
+                        <dt>Número de planetas</dt>
+                        <dd>8 planetas</dd>
+                    </div>
+
+                    <div>
+                        <dt>Idade aproximada</dt>
+                        <dd>4,6 bilhões de anos</dd>
+                    </div>
+
+                    <div>
+                        <dt>Galáxia</dt>
+                        <dd>Via Láctea</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="reading-options" aria-labelledby="reading-title" data-enhanced hidden>
+                <h2 id="reading-title">
+                    Sua leitura, do seu jeito
+                </h2>
+
+                <label for="font-size">
+                    Tamanho do texto
+                </label>
+
+                <select id="font-size">
+                    <option value="15">Compacto</option>
+                    <option value="17" selected>Padrão</option>
+                    <option value="20">Ampliado</option>
+                </select>
+
+                <p class="reading-hint">
+                    As preferências são lembradas neste navegador,
+                    quando o armazenamento está disponível.
+                </p>
+            </section>
+        </aside>
+    </div>
+
+    <!-- ===== Rodapé principal ===== -->
+
+    <footer class="site-footer" id="sobre">
+        <p>
+            <strong>WeydPédia.</strong>
+            Modelo independente de enciclopédia inspirado na
+            Wikipédia. Personalize com sua marca e seus artigos.
+        </p>
+
+        <a href="#inicio">
+            Voltar ao topo ↑
+        </a>
+    </footer>
+
+    <script>
+        /*
+          Melhoria progressiva:
+          o artigo e os links funcionam mesmo sem este script.
+        */
+
+        (() => {
+            'use strict';
+
+            const root = document.documentElement;
+
+            const article = document.getElementById('article-body');
+            const searchInput = document.getElementById('search-input');
+            const feedback = document.getElementById('search-feedback');
+            const themeToggle = document.getElementById('theme-toggle');
+            const fontSize = document.getElementById('font-size');
+            const toc = document.getElementById('toc');
+
+            const tocLinks = Array.from(
+                toc.querySelectorAll('a')
+            );
+
+            /*
+              O acesso ao armazenamento pode ser bloqueado
+              pelo navegador. A interface continua funcionando.
+            */
+
+            const storage = {
+                get(key) {
+                    try {
+                        return localStorage.getItem('weydpedia-' + key);
+                    } catch {
+                        return null;
+                    }
+                },
+
+                set(key, value) {
+                    try {
+                        localStorage.setItem('weydpedia-' + key, value);
+                    } catch {
+                        // Sem persistência, mantém a preferência nesta página.
+                    }
+                }
+            };
+
+            /* ===== Tema claro e escuro ===== */
+
+            const systemTheme = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            );
+
+            let selectedTheme = storage.get('theme');
+
+            if (!['light', 'dark'].includes(selectedTheme)) {
+                selectedTheme = null;
+            }
+
+            /*
+              Aplica o tema selecionado no documento inteiro.
+              Ela atualiza o atributo data-theme e o estado acessível
+              do botão para informar se o modo escuro está ativado.
+            */
+            function applyTheme(theme) {
+                root.dataset.theme = theme;
+
+                themeToggle.setAttribute(
+                    'aria-pressed',
+                    String(theme === 'dark')
+                );
+            }
+
+            applyTheme(
+                selectedTheme ||
+                (systemTheme.matches ? 'dark' : 'light')
+            );
+
+            themeToggle.addEventListener('click', () => {
+                selectedTheme =
+                    root.dataset.theme === 'dark'
+                        ? 'light'
+                        : 'dark';
+
+                applyTheme(selectedTheme);
+                storage.set('theme', selectedTheme);
+            });
+
+            systemTheme.addEventListener('change', event => {
+                if (!selectedTheme) {
+                    applyTheme(event.matches ? 'dark' : 'light');
+                }
+            });
+
+            /* ===== Tamanho do texto ===== */
+
+            const savedSize = storage.get('font-size');
+
+            if (['15', '17', '20'].includes(savedSize)) {
+                fontSize.value = savedSize;
+            }
+
+            /*
+              Ajusta o tamanho da fonte do artigo conforme a escolha do usuário.
+              O valor é escrito na variável CSS --article-size para manter
+              a leitura consistente em toda a página.
+            */
+            function applyFontSize() {
+                root.style.setProperty(
+                    '--article-size',
+                    fontSize.value + 'px'
+                );
+            }
+
+            applyFontSize();
+
+            fontSize.addEventListener('change', () => {
+                applyFontSize();
+                storage.set('font-size', fontSize.value);
+            });
+
+            /* ===== Impressão ===== */
+
+            document
+                .getElementById('print-button')
+                .addEventListener('click', () => {
+                    window.print();
+                });
+
+            /* ===== Índice no celular ===== */
+
+            const mobile = window.matchMedia(
+                '(max-width: 720px)'
+            );
+
+            toc.open = !mobile.matches;
+
+            mobile.addEventListener('change', event => {
+                toc.open = !event.matches;
+            });
+
+            tocLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobile.matches) {
+                        toc.open = false;
+                    }
+                });
+            });
+
+            /* ===== Destaque da seção em leitura ===== */
+
+            const sections = Array.from(
+                article.querySelectorAll('[data-section]')
+            );
+
+            let scrollPending = false;
+
+            /*
+              Marca a seção ativa no índice conforme o usuário avança no artigo.
+              A função compara a posição de cada bloco com o topo da janela e
+              atualiza o link do menu com aria-current para orientar a navegação.
+            */
+            function updateActiveSection() {
+                const offset =
+                    document.querySelector('.site-header').offsetHeight + 70;
+
+                let current = sections[0];
+
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= offset) {
+                        current = section;
+                    }
+                }
+
+                const reachedBottom =
+                    window.scrollY > 0 &&
+                    window.innerHeight + window.scrollY >=
+                    document.documentElement.scrollHeight - 4;
+
+                if (reachedBottom) {
+                    current = sections[sections.length - 1];
+                }
+
+                tocLinks.forEach(link => {
+                    if (link.hash === '#' + current.id) {
+                        link.setAttribute('aria-current', 'location');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+
+                scrollPending = false;
+            }
+
+            window.addEventListener(
+                'scroll',
+                () => {
+                    if (!scrollPending) {
+                        scrollPending = true;
+
+                        window.requestAnimationFrame(
+                            updateActiveSection
+                        );
+                    }
+                },
+                { passive: true }
+            );
+
+            window.addEventListener(
+                'resize',
+                updateActiveSection
+            );
+
+            updateActiveSection();
+
+            /* ===== Busca local no artigo ===== */
+
+            let lastQuery = '';
+            let matches = [];
+            let currentIndex = -1;
+
+            /*
+              Remove todas as marcações de busca antes de iniciar uma nova pesquisa.
+              Ela recupera o texto original do artigo e limpa o estado de resultados
+              para evitar destaque duplicado ou inconsistências na navegação.
+            */
+            function clearSearch() {
+                article
+                    .querySelectorAll('mark.search-match')
+                    .forEach(mark => {
+                        mark.replaceWith(
+                            document.createTextNode(mark.textContent)
+                        );
+                    });
+
+                article.normalize();
+
+                matches = [];
+                currentIndex = -1;
+                lastQuery = '';
+                feedback.textContent = '';
+            }
+
+            /*
+              Normaliza o texto para comparação sem diferenciar acentos e caixa.
+              A função também guarda posições dos caracteres originais para
+              reconstituir corretamente o texto ao destacar resultados na página.
+            */
+            function normalizeText(text) {
+                let normalized = '';
+                const offsets = [];
+                let sourceIndex = 0;
+
+                for (const character of text) {
+                    const plain = character
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')
+                        .toLocaleLowerCase('pt-BR');
+
+                    for (let i = 0; i < plain.length; i++) {
+                        offsets.push(sourceIndex);
+                    }
+
+                    normalized += plain;
+                    sourceIndex += character.length;
+                }
+
+                offsets.push(text.length);
+
+                return {
+                    text: normalized,
+                    offsets
+                };
+            }
+
+            /*
+              Destaca todas as ocorrências da busca no conteúdo do artigo.
+              Ela percorre os nós de texto, ignora trechos que não devem ser
+              marcados e cria elementos <mark> nas ocorrências encontradas.
+            */
+            function highlight(query) {
+                const walker = document.createTreeWalker(
+                    article,
+                    NodeFilter.SHOW_TEXT,
+                    {
+                        acceptNode(node) {
+                            const excluded = node.parentElement.closest(
+                                'sup, .sr-only, [aria-hidden="true"], [role="img"]'
+                            );
+
+                            return node.textContent.trim() && !excluded
+                                ? NodeFilter.FILTER_ACCEPT
+                                : NodeFilter.FILTER_REJECT;
+                        }
+                    }
+                );
+
+                const nodes = [];
+
+                while (walker.nextNode()) {
+                    nodes.push(walker.currentNode);
+                }
+
+                nodes.forEach(node => {
+                    const normalized = normalizeText(
+                        node.textContent
+                    );
+
+                    let start = normalized.text.indexOf(query);
+
+                    if (start < 0) {
+                        return;
+                    }
+
+                    const fragment = document.createDocumentFragment();
+                    let cursor = 0;
+
+                    while (start >= 0) {
+                        const originalStart = normalized.offsets[start];
+
+                        const originalEnd =
+                            normalized.offsets[start + query.length];
+
+                        fragment.append(
+                            document.createTextNode(
+                                node.textContent.slice(
+                                    cursor,
+                                    originalStart
+                                )
+                            )
+                        );
+
+                        const mark = document.createElement('mark');
+
+                        mark.className = 'search-match';
+
+                        mark.textContent = node.textContent.slice(
+                            originalStart,
+                            originalEnd
+                        );
+
+                        fragment.append(mark);
+                        matches.push(mark);
+
+                        cursor = originalEnd;
+
+                        start = normalized.text.indexOf(
+                            query,
+                            start + query.length
+                        );
+                    }
+
+                    fragment.append(
+                        document.createTextNode(
+                            node.textContent.slice(cursor)
+                        )
+                    );
+
+                    node.replaceWith(fragment);
+                });
+            }
+
+            document
+                .getElementById('search-form')
+                .addEventListener('submit', event => {
+                    event.preventDefault();
+
+                    const query = normalizeText(
+                        searchInput.value.trim()
+                    ).text;
+
+                    if (!query) {
+                        clearSearch();
+                        return;
+                    }
+
+                    if (query !== lastQuery) {
+                        clearSearch();
+                        highlight(query);
+                        lastQuery = query;
+                    }
+
+                    if (!matches.length) {
+                        feedback.textContent =
+                            'Nenhum resultado neste artigo. Tente outro termo.';
+
+                        return;
+                    }
+
+                    if (currentIndex >= 0) {
+                        matches[currentIndex].classList.remove(
+                            'search-current'
+                        );
+                    }
+
+                    currentIndex =
+                        (currentIndex + 1) % matches.length;
+
+                    const match = matches[currentIndex];
+
+                    match.classList.add('search-current');
+
+                    const reducedMotion = window.matchMedia(
+                        '(prefers-reduced-motion: reduce)'
+                    ).matches;
+
+                    match.scrollIntoView({
+                        block: 'center',
+                        behavior: reducedMotion ? 'instant' : 'smooth'
+                    });
+
+                    feedback.textContent =
+                        'Resultado ' +
+                        (currentIndex + 1) +
+                        ' de ' +
+                        matches.length +
+                        '. Enter avança; Esc limpa a busca.';
+                });
+
+            searchInput.addEventListener(
+                'input',
+                clearSearch
+            );
+
+            searchInput.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    searchInput.value = '';
+                    clearSearch();
+                }
+            });
+
+            /*
+              Exibe os controles depois de configurar seus eventos.
+            */
+
+            document
+                .querySelectorAll('[data-enhanced]')
+                .forEach(element => {
+                    element.hidden = false;
+                });
+        })();
+    </script>
+</body>
+
+</html>
